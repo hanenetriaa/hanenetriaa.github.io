@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { GITHUB, filters, method, profile, projects } from './data.js'
+import { GITHUB, LINKEDIN, filters, method, profile, projects } from './data.js'
 import { covers } from './Covers.jsx'
 import { TechChip } from './TechIcon.jsx'
 import { Cube, useTilt } from './Fx.jsx'
@@ -15,7 +15,7 @@ function Nav() {
         <nav className="nav-links" aria-label="Navigation principale">
           <a href="#projets">Projets</a>
           <a href="#methode">Méthode</a>
-          <a href="#contact" className="nav-cta">Me contacter</a>
+          <a href="#contact" className="nav-cta">Contact</a>
         </nav>
       </div>
     </header>
@@ -165,7 +165,7 @@ function Method() {
         <ol className="method">
           {method.map((m, i) => (
             <li key={m.title}>
-              <span className="step">{i + 1}</span>
+              <span className="step">{String(i + 1).padStart(2, '0')}</span>
               <h3>{m.title}</h3>
               <p>{m.text}</p>
             </li>
@@ -185,8 +185,8 @@ function Contact() {
           <p>Je suis ouverte aux postes IT : développement, cloud ou gestion de projet.</p>
         </div>
         <div className="contact-actions">
-          <a className="btn btn-light" href={GITHUB} target="_blank" rel="noreferrer">Voir mon GitHub</a>
-          <a className="btn btn-outline-light" href="#projets">Revoir les projets</a>
+          <a className="btn btn-light" href={LINKEDIN} target="_blank" rel="noreferrer">Me contacter sur LinkedIn</a>
+          <a className="btn btn-outline-light" href={GITHUB} target="_blank" rel="noreferrer">Voir mon GitHub</a>
         </div>
       </div>
     </section>

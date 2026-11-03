@@ -1,4 +1,5 @@
 export const GITHUB = 'https://github.com/hanenetriaa'
+export const LINKEDIN = 'https://www.linkedin.com/in/hanenetriaa/'
 
 export const profile = {
   name: 'Hanene Triaa',

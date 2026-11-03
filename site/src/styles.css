@@ -433,7 +433,6 @@ body { background: var(--paper); color: var(--ink); }
 }
 .hero h1 { color: var(--ink); letter-spacing: -0.035em; }
 .hero h1 span { color: var(--muted); font-weight: 500; }
-.hero h1 span::before { content: ''; display: inline-block; width: 28px; height: 4px; border-radius: 4px; background: var(--accent); vertical-align: middle; margin: 0 12px 6px 0; }
 .hero-school { color: var(--muted); }
 .hero-pitch { color: #3A3A3A; }
 .hero .btn-light { background: var(--ink); color: var(--paper); }
@@ -514,7 +513,7 @@ body { background: var(--paper); color: var(--ink); }
 .project-highlights li::before { background-color: var(--accent-soft); }
 
 /* Méthode et contact */
-.step { background: var(--accent); }
+.step { width: auto; height: auto; border-radius: 0; background: none; color: var(--muted); font: 600 .9rem var(--font-head); letter-spacing: .08em; margin-bottom: 10px; }
 .method li:first-child { border-top-color: var(--ink); }
 .contact { background: var(--ink); }
 .contact .btn-light { background: var(--accent); color: #fff; }
@@ -531,4 +530,21 @@ body { background: var(--paper); color: var(--ink); }
   .f2 { transform: rotateY(180deg) translateZ(26px); } .f3 { transform: rotateY(-90deg) translateZ(26px); }
   .f4 { transform: rotateX(90deg) translateZ(26px); } .f5 { transform: rotateX(-90deg) translateZ(26px); }
   .face { font-size: .75rem; }
+}
+
+/* Ajustements responsive */
+@media (max-width: 960px) {
+  .hero-visual { height: auto; aspect-ratio: 16 / 11; max-width: 620px; width: 100%; margin: 28px auto 0; }
+  .cube-wrap { display: none; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 40px 0 64px; }
+  .hero-visual { height: auto; margin-top: 32px; }
+  .nav-links { gap: 18px; }
+  .nav-links a[href="#projets"] { display: inline; }
+  .filters { flex-wrap: nowrap; overflow-x: auto; margin-right: -16px; padding-right: 16px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter { flex: 0 0 auto; }
+  .contact-actions { width: 100%; }
+  .contact-actions .btn { flex: 1 1 100%; justify-content: center; text-align: center; }
 }
