@@ -7,26 +7,23 @@ projet : visuels de chaque projet, filtre par domaine, galerie d'écrans et lien
 
 ## Développement
 
+Le code source est dans `site/`. La compilation écrit le site directement à la racine du dépôt,
+que GitHub Pages publie.
+
 ```bash
+cd site
 npm install
-npm run dev        # http://localhost:5173
-```
-
-## Publication
-
-Le site compilé est publié sur la branche `gh-pages` (GitHub Pages) :
-
-```bash
-npm run build
-# puis publier le contenu de dist/ sur la branche gh-pages
+npm run dev        # aperçu local : http://localhost:5173
+npm run build      # met à jour index.html, assets/ et img/ à la racine
 ```
 
 ## Structure
 
 ```
-src/
-├── App.jsx      # Sections : accueil, expertises, projets, méthode, contact
-├── data.js      # Contenu : profil, expertises, projets
-└── styles.css   # Charte graphique (bleu marine, responsive)
-public/img/      # Captures et schémas des projets
+site/
+├── src/App.jsx      # Sections : accueil, expertises, projets, méthode, contact
+├── src/data.js      # Contenu : profil, expertises, projets
+├── src/styles.css   # Charte graphique (bleu marine, responsive)
+└── public/img/      # Captures et schémas des projets
+index.html, assets/, img/   # Site compilé, publié par GitHub Pages
 ```
