@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { GITHUB, filters, method, profile, projects } from './data.js'
 import { covers } from './Covers.jsx'
 import { TechChip } from './TechIcon.jsx'
+import { Cube, useTilt } from './Fx.jsx'
 
 function Nav() {
   return (
@@ -22,8 +23,9 @@ function Nav() {
 }
 
 function Hero({ onPick }) {
+  const tilt = useTilt(10)
   return (
-    <section className="hero" id="top">
+    <section className="hero" id="top" ref={tilt.ref} onPointerMove={tilt.onPointerMove} onPointerLeave={tilt.onPointerLeave}>
       <div className="container hero-grid">
         <div className="hero-text">
           <p className="hero-school">{profile.school}</p>
@@ -43,12 +45,15 @@ function Hero({ onPick }) {
           </ul>
         </div>
         <div className="hero-visual" aria-hidden="true">
+          <div className="scene">
           <div className="mock-browser">
             <div className="mock-bar"><i /><i /><i /><span>nice-waste-management.streamlit.app</span></div>
             <img src="img/nice-synthese.webp" alt="" />
           </div>
           <div className="mock-phone mock-phone-2"><img src="img/az-input.webp" alt="" /></div>
           <div className="mock-phone"><img src="img/az-profil.webp" alt="" /></div>
+          <Cube />
+          </div>
         </div>
       </div>
     </section>
@@ -58,8 +63,9 @@ function Hero({ onPick }) {
 function ProjectCard({ project, onOpen }) {
   const Cover = covers[project.id]
   const main = project.links[0]
+  const tilt = useTilt(7)
   return (
-    <article className="pcard" id={project.id}>
+    <article className="pcard" id={project.id} ref={tilt.ref} onPointerMove={tilt.onPointerMove} onPointerLeave={tilt.onPointerLeave}>
       <button className="pcard-cover" onClick={() => onOpen(project)} aria-label={`Voir le détail de ${project.name}`}>
         <Cover />
         <span className={`type-badge type-${project.type.split(' ')[1]}`}>{project.type}</span>
@@ -176,7 +182,7 @@ function Contact() {
       <div className="container contact-inner">
         <div>
           <h2>Vous recrutez un profil IT motivé ? Parlons-en.</h2>
-          <p>Jeune diplômée, je suis ouverte aux postes IT : développement, cloud ou gestion de projet.</p>
+          <p>Je suis ouverte aux postes IT : développement, cloud ou gestion de projet.</p>
         </div>
         <div className="contact-actions">
           <a className="btn btn-light" href={GITHUB} target="_blank" rel="noreferrer">Voir mon GitHub</a>

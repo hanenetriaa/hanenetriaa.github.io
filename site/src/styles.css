@@ -399,3 +399,136 @@ button.btn { cursor: pointer; font-family: var(--font-body); }
 .pcard .duel-vs { font-size: .85rem; }
 .pcard .terra-foot { bottom: 10px; }
 .pcard .cover-ladd, .pcard .cover-trello, .pcard .cover-terra { padding-top: 36px; }
+
+/* =====================================================================
+   Thème « neutre élégant + couleur vive » et touches 3D
+   ===================================================================== */
+:root {
+  --ink: #151515;
+  --paper: #FFFFFF;
+  --surface: #F3F2EF;
+  --line-n: #E4E2DD;
+  --muted: #5E5E5E;
+  --accent: #FF5B14;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, white);
+}
+body { background: var(--paper); color: var(--ink); }
+
+/* Navigation */
+.nav { background: rgba(255, 255, 255, .9); border-bottom: 1px solid var(--line-n); }
+.brand { color: var(--ink); }
+.brand-mark { background: var(--ink); color: var(--paper); }
+.nav-links a { color: var(--muted); }
+.nav-links a:hover { color: var(--ink); }
+.nav-links .nav-cta { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.nav-links .nav-cta:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* Accueil */
+.hero {
+  background:
+    radial-gradient(520px 380px at 78% 38%, var(--accent-soft), transparent 70%),
+    var(--paper);
+  color: var(--ink);
+  padding-bottom: 104px;
+}
+.hero h1 { color: var(--ink); letter-spacing: -0.035em; }
+.hero h1 span { color: var(--muted); font-weight: 500; }
+.hero h1 span::before { content: ''; display: inline-block; width: 28px; height: 4px; border-radius: 4px; background: var(--accent); vertical-align: middle; margin: 0 12px 6px 0; }
+.hero-school { color: var(--muted); }
+.hero-pitch { color: #3A3A3A; }
+.hero .btn-light { background: var(--ink); color: var(--paper); }
+.hero .btn-light:hover { background: var(--accent); }
+.hero .btn-outline-light { border-color: var(--ink); color: var(--ink); }
+.hero .btn-outline-light:hover { background: var(--surface); }
+.hero-domains a { background: var(--paper); border: 1px solid var(--line-n); box-shadow: 0 1px 0 var(--line-n); }
+.hero-domains a:hover { border-color: var(--accent); background: var(--paper); transform: translateY(-2px); }
+.hero-domains strong { color: var(--ink); }
+.hero-domains span { color: var(--muted); }
+
+/* Scène 3D de l'accueil */
+.hero-visual { perspective: 1400px; }
+.scene {
+  position: absolute; inset: 0; transform-style: preserve-3d;
+  transform: rotateX(calc(4deg + var(--rx, 0deg))) rotateY(calc(-10deg + var(--ry, 0deg)));
+  transition: transform .25s ease-out;
+}
+.scene .mock-browser { transform: translateZ(0); box-shadow: 0 40px 80px -30px rgba(21, 21, 21, .35); }
+.scene .mock-phone-2 { transform: translateZ(60px) rotate(-7deg); }
+.scene .mock-phone { transform: translateZ(110px); border-color: var(--ink); }
+.mock-browser, .mock-phone { animation: none; }
+
+.cube-wrap { position: absolute; top: -26px; right: 4%; width: 72px; height: 72px; perspective: 600px; transform: translateZ(150px); }
+.cube { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: spin 14s linear infinite; }
+.face {
+  position: absolute; inset: 0; display: grid; place-items: center; border-radius: 12px;
+  font: 700 .95rem var(--font-head); color: #fff; background: var(--accent);
+  border: 1px solid rgba(255, 255, 255, .35); backface-visibility: hidden;
+}
+.f1, .f3, .f5 { background: var(--ink); }
+.f0 { transform: translateZ(36px); }
+.f1 { transform: rotateY(90deg) translateZ(36px); }
+.f2 { transform: rotateY(180deg) translateZ(36px); }
+.f3 { transform: rotateY(-90deg) translateZ(36px); }
+.f4 { transform: rotateX(90deg) translateZ(36px); }
+.f5 { transform: rotateX(-90deg) translateZ(36px); }
+@keyframes spin { from { transform: rotateX(-18deg) rotateY(0); } to { transform: rotateX(-18deg) rotateY(360deg); } }
+
+/* Projets */
+.section-dark { background: var(--surface); color: var(--ink); }
+.section-dark .section-head p { color: var(--muted); }
+.filter { background: var(--paper); border-color: var(--line-n); color: var(--ink); }
+.filter:hover { border-color: var(--ink); }
+.filter.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filter .count { background: var(--surface); }
+.filter.active .count { background: var(--accent); color: #fff; }
+
+.pgrid { perspective: 1600px; }
+.pcard {
+  background: var(--paper); border: 1px solid var(--line-n);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out, box-shadow .3s, border-color .3s;
+  box-shadow: 0 1px 2px rgba(21, 21, 21, .04);
+  position: relative;
+}
+.pcard:hover {
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-4px);
+  border-color: var(--line-n); box-shadow: 0 30px 60px -28px rgba(21, 21, 21, .35);
+}
+.pcard::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .35), transparent 45%);
+}
+.pcard:hover::after { opacity: 1; }
+.pcard h3 { color: var(--ink); }
+.pcard-summary { color: var(--muted); }
+.tech-chip { background: var(--surface); border-color: var(--line-n); color: var(--ink); }
+.pcard .btn-light { background: var(--ink); color: var(--paper); }
+.pcard .btn-light:hover { background: var(--accent); }
+.pcard .btn-ghost { border-color: var(--line-n); color: var(--ink); }
+.pcard .btn-ghost:hover { border-color: var(--ink); background: transparent; }
+.type-badge { background: var(--paper); color: var(--ink); }
+
+/* Fenêtre de détail */
+.modal-body .btn-dark { background: var(--ink); }
+.modal-body .btn-dark:hover { background: var(--accent); }
+.project-highlights li::before { background-color: var(--accent-soft); }
+
+/* Méthode et contact */
+.step { background: var(--accent); }
+.method li:first-child { border-top-color: var(--ink); }
+.contact { background: var(--ink); }
+.contact .btn-light { background: var(--accent); color: #fff; }
+.contact .btn-light:hover { background: #fff; color: var(--ink); }
+.footer { background: #0E0E0E; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cube { animation: none; transform: rotateX(-18deg) rotateY(-30deg); }
+  .scene, .pcard { transition: none; }
+}
+@media (max-width: 640px) {
+  .cube-wrap { width: 52px; height: 52px; top: -18px; }
+  .f0 { transform: translateZ(26px); } .f1 { transform: rotateY(90deg) translateZ(26px); }
+  .f2 { transform: rotateY(180deg) translateZ(26px); } .f3 { transform: rotateY(-90deg) translateZ(26px); }
+  .f4 { transform: rotateX(90deg) translateZ(26px); } .f5 { transform: rotateX(-90deg) translateZ(26px); }
+  .face { font-size: .75rem; }
+}
