@@ -48,13 +48,6 @@ export const projects = [
       'Synthèse exécutive en un écran pour les décideurs',
     ],
     stack: ['Python', 'Streamlit', 'Pandas', 'Plotly'],
-    frame: 'browser',
-    images: [
-      { src: 'img/nice-synthese.webp', label: 'Synthèse exécutive' },
-      { src: 'img/nice-planning.webp', label: 'Planning et jalons' },
-      { src: 'img/nice-budget.webp', label: 'Budget et valeur acquise' },
-      { src: 'img/nice-risques.webp', label: 'Matrice des risques' },
-    ],
     links: [
       { label: 'Ouvrir la démo', url: 'https://nice-waste-management.streamlit.app' },
       { label: 'Code source', url: `${GITHUB}/nice_waste_management` },
@@ -72,13 +65,6 @@ export const projects = [
       'Synchronisation GitOps du cluster en moins d’une minute',
     ],
     stack: ['AWS', 'Kubernetes', 'Helm', 'ArgoCD', 'Prometheus', 'Grafana', 'OPA Gatekeeper'],
-    frame: 'slide',
-    images: [
-      { src: 'img/kq-architecture.webp', label: 'Architecture AWS' },
-      { src: 'img/kq-observabilite.webp', label: 'Observabilité' },
-      { src: 'img/kq-gitops.webp', label: 'GitOps' },
-      { src: 'img/kq-demos.webp', label: 'Démonstrations' },
-    ],
     links: [{ label: 'Code et documentation', url: `${GITHUB}/kubequest-kubernetes-cloud-infra` }],
   },
   {
@@ -93,11 +79,6 @@ export const projects = [
       'Recommandation chiffrée : IaaS 43 % moins cher, PaaS plus simple à exploiter',
     ],
     stack: ['Azure', 'Terraform', 'Docker', 'Traefik', 'Artillery', 'Jira'],
-    frame: 'plain',
-    images: [
-      { src: 'img/tc-architecture.webp', label: 'Architectures' },
-      { src: 'img/tc-comparaison.webp', label: 'Comparaison' },
-    ],
     links: [{ label: 'Code et rapport', url: `${GITHUB}/terracloud-infrastructure` }],
   },
   {
@@ -112,12 +93,6 @@ export const projects = [
       '23 tâches planifiées et estimées avant de coder',
     ],
     stack: ['Flutter', 'Riverpod', 'Dio', 'Hive', 'React Native', 'TypeScript'],
-    frame: 'phones',
-    images: [
-      { src: 'img/az-input.webp', label: 'Saisie' },
-      { src: 'img/az-profil.webp', label: 'Profil' },
-      { src: 'img/az-loading.webp', label: 'Chargement' },
-    ],
     links: [{ label: 'Code et vidéo', url: `${GITHUB}/azeoo-test-technique` }],
   },
   {
@@ -132,8 +107,7 @@ export const projects = [
       'État applicatif centralisé avec Redux',
     ],
     stack: ['React Native', 'Expo', 'Redux Toolkit', 'React Navigation'],
-    frame: 'plain',
-    images: [{ src: 'img/ladd-architecture.webp', label: 'Architecture' }],
+    
     links: [{ label: 'Code source', url: `${GITHUB}/ladd-notif-mobile-expo` }],
   },
   {
@@ -148,8 +122,7 @@ export const projects = [
       'Architecture MVC et modèle relationnel Eloquent',
     ],
     stack: ['PHP', 'Laravel', 'MySQL', 'Blade'],
-    frame: 'plain',
-    images: [{ src: 'img/trello-modele.webp', label: 'Modèle de données' }],
+    
     links: [{ label: 'Code source', url: `${GITHUB}/TrelloLike` }],
   },
 ]

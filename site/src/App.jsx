@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { GITHUB, expertises, filters, method, profile, projects } from './data.js'
+import { covers } from './Covers.jsx'
 
 function Nav() {
   return (
@@ -80,56 +81,20 @@ function Expertises() {
   )
 }
 
-function Visual({ project }) {
-  const [active, setActive] = useState(0)
-  const img = project.images[active]
-
-  if (project.frame === 'phones') {
-    return (
-      <div className="visual visual-phones">
-        {project.images.map((i) => (
-          <div className="phone" key={i.src}><img src={i.src} alt={`${project.name} : écran ${i.label}`} loading="lazy" /></div>
-        ))}
-      </div>
-    )
-  }
-
+function ProjectCard({ project, featured }) {
+  const Cover = covers[project.id]
   return (
-    <div className="visual">
-      <div className={`frame frame-${project.frame}`}>
-        {project.frame === 'browser' && <div className="mock-bar"><i /><i /><i /></div>}
-        <img src={img.src} alt={`${project.name} : ${img.label}`} loading="lazy" />
-      </div>
-      {project.images.length > 1 && (
-        <div className="thumbs" role="tablist" aria-label={`Visuels de ${project.name}`}>
-          {project.images.map((i, idx) => (
-            <button
-              key={i.src}
-              role="tab"
-              aria-selected={idx === active}
-              className={idx === active ? 'thumb active' : 'thumb'}
-              onClick={() => setActive(idx)}
-            >
-              {i.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-function Project({ project, reverse }) {
-  return (
-    <article className={reverse ? 'project reverse' : 'project'} id={project.id}>
-      <Visual project={project} />
-      <div className="project-body">
-        <p className="project-domains">{project.domains.join(' et ')}</p>
+    <article className={featured ? 'pcard pcard-featured' : 'pcard'} id={project.id}>
+      <div className="pcard-cover"><Cover /></div>
+      <div className="pcard-body">
+        <p className="project-domains">{project.domains.join(' · ')}</p>
         <h3>{project.name}</h3>
-        <p className="project-summary">{project.summary}</p>
-        <ul className="project-highlights">
-          {project.highlights.map((h) => <li key={h}>{h}</li>)}
-        </ul>
+        <p className="pcard-summary">{project.summary}</p>
+        {featured && (
+          <ul className="project-highlights">
+            {project.highlights.map((h) => <li key={h}>{h}</li>)}
+          </ul>
+        )}
         <ul className="stack" aria-label="Technologies">
           {project.stack.map((s) => <li key={s}>{s}</li>)}
         </ul>
@@ -148,12 +113,13 @@ function Project({ project, reverse }) {
 function Projects() {
   const [filter, setFilter] = useState(filters[0])
   const shown = projects.filter((p) => filter === filters[0] || p.domains.includes(filter))
+  const [first, ...rest] = shown
   return (
-    <section className="section section-mist" id="projets">
+    <section className="section section-dark" id="projets">
       <div className="container">
         <div className="section-head">
-          <h2>Projets</h2>
-          <p>Chaque projet est documenté sur GitHub : contexte, choix techniques, difficultés et résultats.</p>
+          <h2>Projets sélectionnés</h2>
+          <p>Du cluster Kubernetes à l’application mobile, chaque projet a son code source et, quand c’est possible, une démo en ligne.</p>
         </div>
         <div className="filters" role="group" aria-label="Filtrer les projets">
           {filters.map((f) => (
@@ -162,8 +128,9 @@ function Projects() {
             </button>
           ))}
         </div>
-        <div className="project-list">
-          {shown.map((p, i) => <Project key={p.id} project={p} reverse={i % 2 === 1} />)}
+        {first && <ProjectCard project={first} featured />}
+        <div className="pgrid">
+          {rest.map((p) => <ProjectCard key={p.id} project={p} />)}
         </div>
       </div>
     </section>
