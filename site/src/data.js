@@ -2,9 +2,9 @@ export const GITHUB = 'https://github.com/hanenetriaa'
 
 export const profile = {
   name: 'Hanene Triaa',
-  title: 'Profil IT, jeune diplômée d’EPITECH',
+  title: 'Développement, cloud et gestion de projet',
   pitch:
-    'J’aime suivre un projet de bout en bout : concevoir une application, la mettre en ligne et organiser le travail pour qu’il aboutisse.',
+    'Du code à la mise en production, j’aime comprendre un besoin, construire une solution fiable et la mener jusqu’au bout.',
   school: 'Master Architecte des systèmes d’information, EPITECH Nice',
 }
 
