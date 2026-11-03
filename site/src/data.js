@@ -2,38 +2,15 @@ export const GITHUB = 'https://github.com/hanenetriaa'
 
 export const profile = {
   name: 'Hanene Triaa',
-  title: 'Développeuse web et mobile, cloud et DevOps',
+  title: 'Profil IT, jeune diplômée d’EPITECH',
   pitch:
-    'Je développe des applications web et mobiles, je déploie des infrastructures cloud et je pilote des projets techniques, de la note de cadrage à la mise en production.',
+    'J’aime suivre un projet de bout en bout : concevoir une application, la mettre en ligne et organiser le travail pour qu’il aboutisse.',
   school: 'Master Architecte des systèmes d’information, EPITECH Nice',
 }
 
-export const skills = [
-  {
-    title: 'Développement web',
-    text: 'Applications et interfaces web, du front-end à l’API.',
-    tech: ['react', 'vue', 'javascript', 'typescript', 'html', 'node', 'laravel', 'php', 'mysql'],
-  },
-  {
-    title: 'Développement mobile',
-    text: 'Applications iOS et Android, connectées à des API REST.',
-    tech: ['reactnative', 'expo', 'redux', 'flutter', 'dart'],
-  },
-  {
-    title: 'Cloud et DevOps',
-    text: 'Infrastructures décrites en code, supervisées et déployées automatiquement.',
-    tech: ['aws', 'azure', 'kubernetes', 'docker', 'terraform', 'helm', 'argocd', 'prometheus', 'grafana', 'linux'],
-  },
-  {
-    title: 'Data et pilotage',
-    text: 'Tableaux de bord et suivi de projet : planning, budget, risques.',
-    tech: ['python', 'streamlit', 'pandas', 'plotly', 'jira', 'git'],
-  },
-]
-
 export const method = [
   { title: 'Cadrer', text: 'Objectifs mesurables, périmètre, parties prenantes et risques identifiés dès le départ.' },
-  { title: 'Concevoir', text: 'Une architecture simple à faire évoluer, documentée et décrite en code.' },
+  { title: 'Concevoir', text: 'Une solution simple à faire évoluer, documentée et expliquée.' },
   { title: 'Livrer', text: 'Automatisation, tests et supervision prévus avant la mise en production.' },
   { title: 'Piloter', text: 'Avancement, coûts et décisions suivis et partagés avec l’équipe.' },
 ]

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { GITHUB, filters, method, profile, projects, skills } from './data.js'
+import { GITHUB, filters, method, profile, projects } from './data.js'
 import { covers } from './Covers.jsx'
-import { TECH, TechChip, TechIcon } from './TechIcon.jsx'
+import { TechChip } from './TechIcon.jsx'
 
 function Nav() {
   return (
@@ -12,7 +12,6 @@ function Nav() {
           <span className="brand-name">Hanene Triaa</span>
         </a>
         <nav className="nav-links" aria-label="Navigation principale">
-          <a href="#competences">Compétences</a>
           <a href="#projets">Projets</a>
           <a href="#methode">Méthode</a>
           <a href="#contact" className="nav-cta">Me contacter</a>
@@ -22,7 +21,7 @@ function Nav() {
   )
 }
 
-function Hero() {
+function Hero({ onPick }) {
   return (
     <section className="hero" id="top">
       <div className="container hero-grid">
@@ -37,10 +36,10 @@ function Hero() {
             <a className="btn btn-light" href="#projets">Voir mes projets</a>
             <a className="btn btn-outline-light" href={GITHUB} target="_blank" rel="noreferrer">GitHub</a>
           </div>
-          <ul className="hero-domains" aria-label="Domaines">
-            <li><a href="#competences"><strong>Web</strong><span>React, Vue, Laravel</span></a></li>
-            <li><a href="#competences"><strong>Mobile</strong><span>React Native, Flutter</span></a></li>
-            <li><a href="#competences"><strong>Cloud</strong><span>AWS, Azure, Kubernetes</span></a></li>
+          <ul className="hero-domains" aria-label="Voir les projets par domaine">
+            <li><a href="#projets" onClick={() => onPick('Web')}><strong>Web</strong><span>2 projets</span></a></li>
+            <li><a href="#projets" onClick={() => onPick('Mobile')}><strong>Mobile</strong><span>2 projets</span></a></li>
+            <li><a href="#projets" onClick={() => onPick('Cloud et DevOps')}><strong>Cloud</strong><span>2 projets</span></a></li>
           </ul>
         </div>
         <div className="hero-visual" aria-hidden="true">
@@ -50,35 +49,6 @@ function Hero() {
           </div>
           <div className="mock-phone mock-phone-2"><img src="img/az-input.webp" alt="" /></div>
           <div className="mock-phone"><img src="img/az-profil.webp" alt="" /></div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Skills() {
-  return (
-    <section className="section" id="competences">
-      <div className="container">
-        <div className="section-head">
-          <h2>Compétences</h2>
-          <p>Du développement web et mobile jusqu’au déploiement dans le cloud.</p>
-        </div>
-        <div className="skills-grid">
-          {skills.map((s) => (
-            <article className="skill-card" key={s.title}>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
-              <ul className="logo-grid">
-                {s.tech.map((t) => (
-                  <li key={t}>
-                    <span className="logo-tile"><TechIcon id={t} size={26} /></span>
-                    <span className="logo-name">{TECH[t].name}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
         </div>
       </div>
     </section>
@@ -149,8 +119,7 @@ function ProjectModal({ project, onClose }) {
   )
 }
 
-function Projects() {
-  const [filter, setFilter] = useState(filters[0])
+function Projects({ filter, setFilter }) {
   const [open, setOpen] = useState(null)
   const shown = projects.filter((p) => filter === filters[0] || p.domains.includes(filter))
   return (
@@ -158,7 +127,7 @@ function Projects() {
       <div className="container">
         <div className="section-head">
           <h2>Projets</h2>
-          <p>Applications web, applications mobiles et infrastructures cloud. Cliquez sur un projet pour voir le détail.</p>
+          <p>Applications web, applications mobiles et infrastructures cloud réalisées pendant mon parcours. Cliquez sur un projet pour voir le détail.</p>
         </div>
         <div className="filters" role="group" aria-label="Filtrer les projets">
           {filters.map((f) => {
@@ -185,7 +154,7 @@ function Method() {
       <div className="container">
         <div className="section-head">
           <h2>Ma méthode</h2>
-          <p>La même démarche, qu’il s’agisse d’une application mobile ou d’un cluster Kubernetes.</p>
+          <p>La démarche que j’applique sur mes projets, qu’il s’agisse d’une application ou d’une infrastructure.</p>
         </div>
         <ol className="method">
           {method.map((m, i) => (
@@ -206,8 +175,8 @@ function Contact() {
     <section className="contact" id="contact">
       <div className="container contact-inner">
         <div>
-          <h2>Un projet web, mobile ou cloud ? Parlons-en.</h2>
-          <p>Je suis ouverte aux opportunités en développement, cloud et gestion de projet IT.</p>
+          <h2>Vous recrutez un profil IT motivé ? Parlons-en.</h2>
+          <p>Jeune diplômée, je suis ouverte aux postes IT : développement, cloud ou gestion de projet.</p>
         </div>
         <div className="contact-actions">
           <a className="btn btn-light" href={GITHUB} target="_blank" rel="noreferrer">Voir mon GitHub</a>
@@ -219,14 +188,14 @@ function Contact() {
 }
 
 export default function App() {
+  const [filter, setFilter] = useState(filters[0])
   return (
     <>
       <a className="skip" href="#projets">Aller aux projets</a>
       <Nav />
       <main>
-        <Hero />
-        <Skills />
-        <Projects />
+        <Hero onPick={setFilter} />
+        <Projects filter={filter} setFilter={setFilter} />
         <Method />
         <Contact />
       </main>
