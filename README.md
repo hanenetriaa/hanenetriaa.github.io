@@ -1,23 +1,32 @@
 # Portfolio — Hanene Triaa
 
-Portfolio en ligne : **https://hanene-triaa.streamlit.app**
-(l'adresse https://hanenetriaa.github.io redirige vers cette page)
+Site vitrine : **https://hanenetriaa.github.io**
 
-Application **Streamlit** qui présente mes projets en cloud, DevOps, développement et gestion de
-projet, avec un aperçu visuel de chacun et un filtre par domaine.
+Site en **React** (Vite) présentant mes projets en cloud, DevOps, développement et pilotage de
+projet : visuels de chaque projet, filtre par domaine, galerie d'écrans et liens vers les dépôts.
 
-## Lancer en local
+## Développement
 
 ```bash
-pip install -r requirements.txt
-streamlit run app.py
+npm install
+npm run dev        # http://localhost:5173
+```
+
+## Publication
+
+Le site compilé est publié sur la branche `gh-pages` (GitHub Pages) :
+
+```bash
+npm run build
+# puis publier le contenu de dist/ sur la branche gh-pages
 ```
 
 ## Structure
 
 ```
-app.py               # Contenu (profil, projets, compétences) et mise en page
-assets/              # Visuels des projets
-.streamlit/          # Thème clair, couleur d'accent bleu marine
-index.html           # Redirection GitHub Pages vers l'application Streamlit
+src/
+├── App.jsx      # Sections : accueil, expertises, projets, méthode, contact
+├── data.js      # Contenu : profil, expertises, projets
+└── styles.css   # Charte graphique (bleu marine, responsive)
+public/img/      # Captures et schémas des projets
 ```
