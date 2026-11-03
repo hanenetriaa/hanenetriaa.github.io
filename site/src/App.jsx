@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { GITHUB, expertises, filters, method, profile, projects } from './data.js'
+import { useEffect, useRef, useState } from 'react'
+import { GITHUB, filters, method, profile, projects, skills } from './data.js'
 import { covers } from './Covers.jsx'
+import { TECH, TechChip, TechIcon } from './TechIcon.jsx'
 
 function Nav() {
   return (
@@ -11,7 +12,7 @@ function Nav() {
           <span className="brand-name">Hanene Triaa</span>
         </a>
         <nav className="nav-links" aria-label="Navigation principale">
-          <a href="#expertises">Expertises</a>
+          <a href="#competences">Compétences</a>
           <a href="#projets">Projets</a>
           <a href="#methode">Méthode</a>
           <a href="#contact" className="nav-cta">Me contacter</a>
@@ -33,11 +34,13 @@ function Hero() {
           </h1>
           <p className="hero-pitch">{profile.pitch}</p>
           <div className="hero-actions">
-            <a className="btn btn-light" href="#projets">Découvrir mes projets</a>
+            <a className="btn btn-light" href="#projets">Voir mes projets</a>
             <a className="btn btn-outline-light" href={GITHUB} target="_blank" rel="noreferrer">GitHub</a>
           </div>
-          <ul className="hero-tags" aria-label="Domaines">
-            <li>AWS</li><li>Azure</li><li>Kubernetes</li><li>Terraform</li><li>React Native</li><li>Gestion de projet</li>
+          <ul className="hero-domains" aria-label="Domaines">
+            <li><a href="#competences"><strong>Web</strong><span>React, Vue, Laravel</span></a></li>
+            <li><a href="#competences"><strong>Mobile</strong><span>React Native, Flutter</span></a></li>
+            <li><a href="#competences"><strong>Cloud</strong><span>AWS, Azure, Kubernetes</span></a></li>
           </ul>
         </div>
         <div className="hero-visual" aria-hidden="true">
@@ -45,33 +48,34 @@ function Hero() {
             <div className="mock-bar"><i /><i /><i /><span>nice-waste-management.streamlit.app</span></div>
             <img src="img/nice-synthese.webp" alt="" />
           </div>
-          <div className="mock-slide">
-            <img src="img/kq-architecture.webp" alt="" />
-          </div>
-          <div className="mock-phone">
-            <img src="img/az-profil.webp" alt="" />
-          </div>
+          <div className="mock-phone mock-phone-2"><img src="img/az-input.webp" alt="" /></div>
+          <div className="mock-phone"><img src="img/az-profil.webp" alt="" /></div>
         </div>
       </div>
     </section>
   )
 }
 
-function Expertises() {
+function Skills() {
   return (
-    <section className="section" id="expertises">
+    <section className="section" id="competences">
       <div className="container">
         <div className="section-head">
-          <h2>Trois expertises, un même fil conducteur</h2>
-          <p>Comprendre le besoin, construire une solution fiable et la mener jusqu’au bout.</p>
+          <h2>Compétences</h2>
+          <p>Du développement web et mobile jusqu’au déploiement dans le cloud.</p>
         </div>
-        <div className="expertise-grid">
-          {expertises.map((e) => (
-            <article className="expertise" key={e.title}>
-              <h3>{e.title}</h3>
-              <p>{e.text}</p>
-              <ul>
-                {e.items.map((i) => <li key={i}>{i}</li>)}
+        <div className="skills-grid">
+          {skills.map((s) => (
+            <article className="skill-card" key={s.title}>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <ul className="logo-grid">
+                {s.tech.map((t) => (
+                  <li key={t}>
+                    <span className="logo-tile"><TechIcon id={t} size={26} /></span>
+                    <span className="logo-name">{TECH[t].name}</span>
+                  </li>
+                ))}
               </ul>
             </article>
           ))}
@@ -81,58 +85,96 @@ function Expertises() {
   )
 }
 
-function ProjectCard({ project, featured }) {
+function ProjectCard({ project, onOpen }) {
   const Cover = covers[project.id]
+  const main = project.links[0]
   return (
-    <article className={featured ? 'pcard pcard-featured' : 'pcard'} id={project.id}>
-      <div className="pcard-cover"><Cover /></div>
+    <article className="pcard" id={project.id}>
+      <button className="pcard-cover" onClick={() => onOpen(project)} aria-label={`Voir le détail de ${project.name}`}>
+        <Cover />
+        <span className={`type-badge type-${project.type.split(' ')[1]}`}>{project.type}</span>
+      </button>
       <div className="pcard-body">
-        <p className="project-domains">{project.domains.join(' · ')}</p>
         <h3>{project.name}</h3>
         <p className="pcard-summary">{project.summary}</p>
-        {featured && (
-          <ul className="project-highlights">
-            {project.highlights.map((h) => <li key={h}>{h}</li>)}
-          </ul>
-        )}
-        <ul className="stack" aria-label="Technologies">
-          {project.stack.map((s) => <li key={s}>{s}</li>)}
+        <ul className="tech-row" aria-label="Technologies">
+          {project.tech.map((t) => <TechChip key={t} id={t} onDark />)}
         </ul>
-        <div className="project-links">
-          {project.links.map((l, i) => (
-            <a key={l.url} className={i === 0 ? 'btn btn-dark' : 'btn btn-outline'} href={l.url} target="_blank" rel="noreferrer">
-              {l.label}
-            </a>
-          ))}
+        <div className="pcard-actions">
+          <button className="btn btn-light btn-sm" onClick={() => onOpen(project)}>Détails du projet</button>
+          <a className="btn btn-ghost btn-sm" href={main.url} target="_blank" rel="noreferrer">{main.label}</a>
         </div>
       </div>
     </article>
   )
 }
 
+function ProjectModal({ project, onClose }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const d = ref.current
+    if (project && d && !d.open) d.showModal()
+    if (!project && d?.open) d.close()
+  }, [project])
+  if (!project) return <dialog ref={ref} className="modal" onClose={onClose} />
+  const Cover = covers[project.id]
+  return (
+    <dialog ref={ref} className="modal" onClose={onClose} onClick={(e) => e.target === ref.current && onClose()}
+      aria-labelledby="modal-title">
+      <div className="modal-inner">
+        <button className="modal-close" onClick={onClose} aria-label="Fermer">×</button>
+        <div className="modal-cover"><Cover /></div>
+        <div className="modal-body">
+          <span className={`type-badge static type-${project.type.split(' ')[1]}`}>{project.type}</span>
+          <h3 id="modal-title">{project.name}</h3>
+          <p className="modal-details">{project.details}</p>
+          <h4>Points clés</h4>
+          <ul className="project-highlights">
+            {project.highlights.map((h) => <li key={h}>{h}</li>)}
+          </ul>
+          <h4>Technologies</h4>
+          <ul className="tech-row light">
+            {project.tech.map((t) => <TechChip key={t} id={t} />)}
+          </ul>
+          <div className="project-links">
+            {project.links.map((l, i) => (
+              <a key={l.url} className={i === 0 ? 'btn btn-dark' : 'btn btn-outline'} href={l.url} target="_blank" rel="noreferrer">
+                {l.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </dialog>
+  )
+}
+
 function Projects() {
   const [filter, setFilter] = useState(filters[0])
+  const [open, setOpen] = useState(null)
   const shown = projects.filter((p) => filter === filters[0] || p.domains.includes(filter))
-  const [first, ...rest] = shown
   return (
     <section className="section section-dark" id="projets">
       <div className="container">
         <div className="section-head">
-          <h2>Projets sélectionnés</h2>
-          <p>Du cluster Kubernetes à l’application mobile, chaque projet a son code source et, quand c’est possible, une démo en ligne.</p>
+          <h2>Projets</h2>
+          <p>Applications web, applications mobiles et infrastructures cloud. Cliquez sur un projet pour voir le détail.</p>
         </div>
         <div className="filters" role="group" aria-label="Filtrer les projets">
-          {filters.map((f) => (
-            <button key={f} className={f === filter ? 'filter active' : 'filter'} aria-pressed={f === filter} onClick={() => setFilter(f)}>
-              {f}
-            </button>
-          ))}
+          {filters.map((f) => {
+            const count = f === filters[0] ? projects.length : projects.filter((p) => p.domains.includes(f)).length
+            return (
+              <button key={f} className={f === filter ? 'filter active' : 'filter'} aria-pressed={f === filter} onClick={() => setFilter(f)}>
+                {f} <span className="count">{count}</span>
+              </button>
+            )
+          })}
         </div>
-        {first && <ProjectCard project={first} featured />}
         <div className="pgrid">
-          {rest.map((p) => <ProjectCard key={p.id} project={p} />)}
+          {shown.map((p) => <ProjectCard key={p.id} project={p} onOpen={setOpen} />)}
         </div>
       </div>
+      <ProjectModal project={open} onClose={() => setOpen(null)} />
     </section>
   )
 }
@@ -143,7 +185,7 @@ function Method() {
       <div className="container">
         <div className="section-head">
           <h2>Ma méthode</h2>
-          <p>La même démarche, qu’il s’agisse d’un cluster Kubernetes ou d’un projet de service public.</p>
+          <p>La même démarche, qu’il s’agisse d’une application mobile ou d’un cluster Kubernetes.</p>
         </div>
         <ol className="method">
           {method.map((m, i) => (
@@ -164,12 +206,12 @@ function Contact() {
     <section className="contact" id="contact">
       <div className="container contact-inner">
         <div>
-          <h2>Vous cherchez un profil qui relie technique et pilotage ?</h2>
-          <p>Je suis ouverte aux opportunités en architecture SI, cloud et gestion de projet IT.</p>
+          <h2>Un projet web, mobile ou cloud ? Parlons-en.</h2>
+          <p>Je suis ouverte aux opportunités en développement, cloud et gestion de projet IT.</p>
         </div>
         <div className="contact-actions">
           <a className="btn btn-light" href={GITHUB} target="_blank" rel="noreferrer">Voir mon GitHub</a>
-          <a className="btn btn-outline-light" href="https://nice-waste-management.streamlit.app" target="_blank" rel="noreferrer">Voir une démo</a>
+          <a className="btn btn-outline-light" href="#projets">Revoir les projets</a>
         </div>
       </div>
     </section>
@@ -183,7 +225,7 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <Expertises />
+        <Skills />
         <Projects />
         <Method />
         <Contact />

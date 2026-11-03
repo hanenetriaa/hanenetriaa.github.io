@@ -62,14 +62,14 @@ export function TerraCloudCover() {
     <div className="cover cover-terra">
       <div className="duel">
         <div className="duel-card">
-          <span className="duel-label">IaaS · VM + Docker</span>
+          <span className="duel-label">IaaS</span>
           <strong>17 €</strong>
           <span className="duel-sub">par mois</span>
           <div className="meter"><i style={{ width: '57%' }} /></div>
         </div>
         <div className="duel-vs">vs</div>
         <div className="duel-card">
-          <span className="duel-label">PaaS · App Service</span>
+          <span className="duel-label">PaaS</span>
           <strong>30 €</strong>
           <span className="duel-sub">par mois</span>
           <div className="meter"><i style={{ width: '100%' }} /></div>
@@ -110,9 +110,9 @@ export function LaddCover() {
 
 export function TrelloCover() {
   const cols = [
-    { name: 'À faire', cards: ['Inviter l’équipe', 'Créer les listes'] },
-    { name: 'En cours', cards: ['Contrôle d’accès'] },
-    { name: 'Terminé', cards: ['Authentification', 'Projets'] },
+    { name: 'À faire', cards: ['Inviter', 'Listes'] },
+    { name: 'En cours', cards: ['Droits d’accès'] },
+    { name: 'Terminé', cards: ['Connexion', 'Projets'] },
   ]
   return (
     <div className="cover cover-trello">
