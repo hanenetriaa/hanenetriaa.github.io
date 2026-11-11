@@ -1,4 +1,5 @@
 export const GITHUB = 'https://github.com/hanenetriaa'
+export const GITLAB = 'https://gitlab.com/hanenetriaa'
 export const LINKEDIN = 'https://www.linkedin.com/in/hanenetriaa/'
 
 export const profile = {
@@ -19,6 +20,23 @@ export const method = [
 export const filters = ['Tous', 'Web', 'Mobile', 'Cloud et DevOps', 'Gestion de projet']
 
 export const projects = [
+  {
+    id: 'triaasupportcom',
+    name: 'TriaaSupportCOM',
+    type: 'Plateforme data',
+    domains: ['Web', 'Cloud et DevOps'],
+    summary: 'Moteur de recommandation d’offres télécom, pensé pour le support : contrôles qualité, supervision et alertes.',
+    details:
+      'Chaque nuit, un traitement contrôle la qualité des données, analyse la consommation de 200 clients d’un opérateur fictif et leur recommande l’offre la plus adaptée. Les clients acceptent ou refusent, ce qui mesure l’efficacité de chaque règle. L’équipe support supervise l’ensemble avec des tableaux de bord, des alertes et un runbook d’incidents.',
+    highlights: [
+      'Règles métier en SQL ; un flux de données incomplet bloque le calcul et conserve les recommandations de la veille',
+      'Supervision Prometheus et Grafana : 7 alertes reliées aux procédures du runbook',
+      'Pipeline GitLab CI : lint, 42 tests automatisés, analyse de sécurité, image Docker',
+      'Export pseudonymisé vers BigQuery pour analyser l’efficacité des recommandations',
+    ],
+    tech: ['node', 'postgresql', 'docker', 'gitlab', 'prometheus', 'grafana', 'bigquery'],
+    links: [{ label: 'Voir le code', url: `${GITLAB}/triaasupportcom` }],
+  },
   {
     id: 'nice-waste',
     name: 'Nice Waste Management',

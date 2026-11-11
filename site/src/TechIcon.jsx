@@ -1,7 +1,8 @@
 import {
-  siAmazonwebservices, siArgo, siDart, siDocker, siExpo, siFlutter, siGit, siGrafana, siHelm, siHtml5,
-  siJavascript, siJira, siKubernetes, siLaravel, siLinux, siMysql, siNodedotjs, siPandas, siPhp, siPlotly,
-  siPrometheus, siPython, siReact, siRedux, siStreamlit, siTerraform, siTraefikproxy, siTypescript, siVuedotjs,
+  siAmazonwebservices, siArgo, siDart, siDocker, siExpo, siFlutter, siGit, siGitlab, siGooglebigquery, siGrafana,
+  siHelm, siHtml5, siJavascript, siJira, siKubernetes, siLaravel, siLinux, siMysql, siNodedotjs, siPandas, siPhp,
+  siPlotly, siPostgresql, siPrometheus, siPython, siReact, siRedux, siStreamlit, siTerraform, siTraefikproxy,
+  siTypescript, siVuedotjs,
 } from 'simple-icons'
 
 // Logos officiels des technologies (Simple Icons). Azure n'y figure pas : pictogramme générique.
@@ -16,6 +17,9 @@ export const TECH = {
   laravel: { name: 'Laravel', icon: siLaravel },
   php: { name: 'PHP', icon: siPhp },
   mysql: { name: 'MySQL', icon: siMysql },
+  postgresql: { name: 'PostgreSQL', icon: siPostgresql },
+  bigquery: { name: 'BigQuery', icon: siGooglebigquery },
+  gitlab: { name: 'GitLab CI', icon: siGitlab },
   flutter: { name: 'Flutter', icon: siFlutter },
   dart: { name: 'Dart', icon: siDart },
   expo: { name: 'Expo', icon: siExpo },

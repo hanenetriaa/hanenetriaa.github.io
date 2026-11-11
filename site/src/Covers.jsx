@@ -35,6 +35,23 @@ export function NiceWasteCover() {
   )
 }
 
+export function TriaaSupportCover() {
+  return (
+    <div className="cover cover-triaa">
+      <div className="laptop">
+        <div className="laptop-screen">
+          <div className="laptop-bar"><i /><i /><i /><span>localhost:3000/supervision</span></div>
+          <img src="img/triaa-supervision.webp" alt="Page de supervision de TriaaSupportCOM : état du calcul, recommandations et efficacité par règle" />
+        </div>
+        <div className="laptop-base" />
+      </div>
+      <div className="float-card fc-1"><strong>117</strong><span>recommandations</span></div>
+      <div className="float-card fc-2"><strong>7</strong><span>alertes Prometheus</span></div>
+      <div className="float-card fc-3"><strong>42</strong><span>tests automatisés</span></div>
+    </div>
+  )
+}
+
 export function KubeQuestCover() {
   return (
     <div className="cover cover-kube">
@@ -129,6 +146,7 @@ export function TrelloCover() {
 }
 
 export const covers = {
+  triaasupportcom: TriaaSupportCover,
   'nice-waste': NiceWasteCover,
   kubequest: KubeQuestCover,
   terracloud: TerraCloudCover,
